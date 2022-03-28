@@ -1,0 +1,69 @@
+<div style=" float: left; width: 1350px; position: relative; padding-left: 300px;">
+
+
+    <ol class="list-group list-group-numbered" *ngFor="let art1 of response;let i=index"
+        style="padding-left: 10px !important; padding-right: 10px;">
+        <br>
+        <div class="table-responsive">
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">IndexComplete</th>
+                        <th scope="col">Queue</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>{{i+1}}</b></td>
+                        <td>{{art1._id}}</td>
+                        <td>{{art1.indexComplete}}</td>
+                        <td>{{art1.queue}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <H4>Procesos Relacionadas con su Informacion</H4>
+        <br>
+        <div class="anyClass">
+            <ol class="list-group list-group-numbered" *ngFor="let item of art1.queue;let indice=index"
+                style="margin-left: 100px; margin-right: 100px; margin-top: 10px;">
+
+                <div class="list-group-item list-group-item-prymary" class="card">
+
+                    <li class="list-group-item list-group-item-prymary" style="color: blue;">Queue: {{item}}</li>
+
+                    <h5 style="color: darkgrey;">Valores del QueueResult</h5>
+                    <li class="list-group-item" *ngIf="art1.queueResult[indice]">Index
+                        {{art1.queueResult[indice].index}}</li>
+                    <li class="list-group-item" *ngIf="art1.queueResult[indice]">IdResultado
+                        {{art1.queueResult[indice].idResultado}}</li>
+
+                    <li class="list-group-item" *ngIf="art1.queueResult[indice]">Mensaje
+                        {{art1.queueResult[indice].mensaje}}
+                    </li>
+                    <button *ngIf="art1.queueResult[indice]"
+                        (click)="Reenviar(art1.queue[indice],art1.queueResult[indice+1],art1.payLoad,art1._id)"
+                        class="btn btn-dark" style="width: 200px; text-align: center;">
+                        Reenviar desde Aqui</button>
+                    <br>
+
+                </div>
+
+               
+
+
+            </ol>
+            <li class="list-group-item">PayLoad: {{art1.payLoad}}</li>
+
+        </div>
+
+        <div>
+        </div>
+
+    </ol>
+
+</div>

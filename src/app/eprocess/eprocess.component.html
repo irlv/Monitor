@@ -1,0 +1,27 @@
+<div style=" float: left; width: 1350px;  padding-left: 300px;">
+    <div *ngIf="loading" class="d-flex justify-content-center" style="padding: 300px; ">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    
+    <ng-template [ngIf]="!loading">
+        <ol class="list-group list-group-numbered" *ngFor="let art1 of response">
+    
+        
+            <div class="hidden-md-down">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{art1._id}} </div>
+    
+                    </div>
+    
+    
+                </li>
+    
+    
+            </div>
+        </ol>
+    </ng-template>
+</div>
+

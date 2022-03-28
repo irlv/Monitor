@@ -1,0 +1,35 @@
+<div style=" float: left; width: 1350px; padding-left: 300px;">
+    <table class="table table-striped">
+
+        <thead class="thead-dark">
+            <tr class="thead-dark">
+                <th scope="col"></th>
+                <th scope="col">Id Queue</th>
+                <th scope="col">Orden de Queue</th>
+                <th scope="col">Index Complete</th>
+                <th scope="col">Error</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let art1 of response;let i=index;let ultimo=last">
+            <tr>
+                <td><b>{{i+1}}</b></td>
+                <td type="button" (click)="pasarDatos(art1)">{{art1._id}}</td>
+                <td>{{art1.queue}}</td>
+                <td>{{art1.indexComplete}}</td>
+                <td *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                    [ngClass]="{ocultar:ultimo!=true}">{{item.mensaje}}</td>
+                    
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+
+
+
+
+<!-- </ol> -->
