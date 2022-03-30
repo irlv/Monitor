@@ -1,0 +1,3 @@
+electron-packager . para crear el instalador
+ npm install -g electron-packager instalar paquetes
+ npm install --save-dev electron@latest instalador electron
