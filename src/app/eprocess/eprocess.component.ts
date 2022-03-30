@@ -25,6 +25,12 @@ export class EProcessComponent implements OnInit {
     this.EnProceso();
     setTimeout(()=>{ this.loading = false,this.EnProceso();}, 1000)
     }, 12000)
+    
+    //this.EnProceso()
+    //var intervalo= setInterval(() => {
+      //this.EnProceso();
+      //}, 5000);
+
 
   }
 
