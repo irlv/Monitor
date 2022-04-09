@@ -1,0 +1,25 @@
+.letra10px{
+    font-size: 12px;
+    font-family:Arial, Helvetica, sans-serif;
+    text-transform: capitalize;
+}
+
+.letra15px{
+    font-size: 15px;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+
+
+.let {
+    text-transform: capitalize;
+}
+
+
+.ocultar{
+    display: none !important;
+}
+    
+.sombra{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

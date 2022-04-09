@@ -7,6 +7,8 @@ import { CErrorComponent } from './cerror/cerror.component';
 import { DetallesComponent } from './detalles/detalles.component';
 import { HeaderComponent } from './header/header.component';
 import { EProcessComponent } from './eprocess/eprocess.component';
+import { DetenidasComponent } from './detenidas/detenidas.component';
+import { PackageComponent } from './package/package.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { EProcessComponent } from './eprocess/eprocess.component';
     CErrorComponent,
     DetallesComponent,
     HeaderComponent,
-    EProcessComponent
+    EProcessComponent,
+    DetenidasComponent,
+    PackageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,27 +1,131 @@
-<div style=" float: left; width: 1350px;  padding-left: 300px;">
-    <div *ngIf="loading" class="d-flex justify-content-center" style="padding: 300px; ">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
+<ng-template [ngIf]="errorMessage">
+    <div>
+        <img class="img-fluid"  src="./assets/Error.webp" alt="" width="50%" height="50%" 
+        style="margin-left: 400px !important;">
     </div>
-    
-    <ng-template [ngIf]="!loading">
-        <ol class="list-group list-group-numbered" *ngFor="let art1 of response">
-    
-        
-            <div class="hidden-md-down">
-                <li class="list-group-item d-flex justify-content-between align-items-start">
-                    <div class="ms-2 me-auto">
-                        <div class="fw-bold">{{art1._id}} </div>
-    
-                    </div>
-    
-    
-                </li>
-    
-    
-            </div>
-        </ol>
-    </ng-template>
+    <div>
+        <br>
+        <br>
+        <button  style="text-align: center; margin-left: 50%;" (click)="recragarPage()" type="button" class="btn btn-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>Reload</button>
+        <!-- <button (click)="recragarPage()">recargar</button> -->
+    </div>
+
+</ng-template>
+
+<div *ngIf="header===1; then thenBlock else elseBlock">
+
 </div>
 
+
+<ng-template #thenBlock>
+
+    <nav class="navbar navbar-light" style="margin-left: 80px;  margin-bottom: 5%;background-color: #e5eeff;"  *ngIf="!errorMessage">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="font-size: 18px;">Resultados Sin Filtro{{errorMessage}}</a>
+            <div style="width: 80%;">
+                <i style="position: absolute; margin-top: 5px; margin-left: 15px; pointer-events: none;"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search-heart" viewBox="0 0 16 16">
+                        <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z" />
+                        <path
+                            d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
+                    </svg></i>
+                <input class="form-control me-2" type="search" [(ngModel)]="art.buscar" (keyup.enter)="buscar()"
+                    placeholder="   Buscar " aria-label="Search"
+                    style="padding-left: 35px !important;  border: none; background-color:#e5eeff ;">
+            </div>
+        </div>
+    </nav>
+</ng-template>
+
+<ng-template #elseBlock>
+
+    <nav class="navbar navbar-light" style="margin-left: 80px;  margin-bottom: 5%;background-color: #e5eeff;"  *ngIf="!errorMessage">
+        <div class="container-fluid">
+            <a class="navbar-brand" style="font-size: 18px;text-transform: capitalize;">{{name}}</a>
+            <div style="width: 80%;">
+                <i style="position: absolute; margin-top: 5px; margin-left: 15px; pointer-events: none;"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-search-heart" viewBox="0 0 16 16">
+                        <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018Z" />
+                        <path
+                            d="M13 6.5a6.471 6.471 0 0 1-1.258 3.844c.04.03.078.062.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1.007 1.007 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5ZM6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" />
+                    </svg></i>
+                <input class="form-control me-2" type="search" [(ngModel)]="art.buscar" (keyup.enter)="buscar()"
+                    placeholder="   Buscar " aria-label="Search"
+                    style="padding-left: 35px !important;  border: none; background-color:#e5eeff ;">
+            </div>
+        </div>
+    </nav>
+
+</ng-template>
+
+
+<div style="padding-left: 80px !important; " *ngIf="!errorMessage">
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5" *ngFor="let art1 of response;let indice=index">
+                <div class="card" style="margin-bottom: 2%;" class="shadow p-3 mb-5 bg-white rounded">
+                    <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;"> Id :{{art1._id}} </div>
+                    <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;">Indice Completado:
+                        {{art1.indexComplete}} </div>
+                    <div class="fw-bold"
+                        *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                        [ngClass]="{ocultar:ultimo!=true}" style="font-family: 'Times New Roman', Times, serif;">Queue
+                        Completada: {{art1.queue[i]}} </div>
+                    <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;">Indice Actual:
+                        {{art1.indexComplete+1}} </div>
+                    <div class="fw-bold"
+                        *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                        [ngClass]="{ocultar:ultimo!=true}" style="font-family: 'Times New Roman', Times, serif;">Queue
+                        en Proceso: {{art1.queue[i+1]}} </div>
+                    <div *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                        [ngClass]="{ocultar:ultimo!=true}"
+                        style="font-family: 'Times New Roman', Times, serif;margin: left 10% !important;">
+                        {{item.mensaje}}</div>
+
+                        <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;">Fecha Creado:
+                            {{art1.createdAt}} </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <ol class="list-group list-group-numbered" *ngFor="let art1 of response;let indice=index">
+        <div class="card">
+            <div class="hidden-md-down">
+
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;"> Id :{{art1._id}}
+                        </div>
+                        <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;">Indice Completado:
+                            {{art1.indexComplete}} </div>
+                        <div class="fw-bold"
+                            *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                            [ngClass]="{ocultar:ultimo!=true}" style="font-family: 'Times New Roman', Times, serif;">
+                            Queue Completada: {{art1.queue[i]}} </div>
+                        <div class="fw-bold" style="font-family: 'Times New Roman', Times, serif;">Indice Actual:
+                            {{art1.indexComplete+1}} </div>
+                        <div class="fw-bold"
+                            *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                            [ngClass]="{ocultar:ultimo!=true}" style="font-family: 'Times New Roman', Times, serif;">
+                            Queue en Proceso: {{art1.queue[i+1]}} </div>
+                        <div *ngFor="let item of art1.queueResult;let i=index;let ultimo=last;let contador=count"
+                            [ngClass]="{ocultar:ultimo!=true}"
+                            style="font-family: 'Times New Roman', Times, serif;margin: left 10% !important;">
+                            {{item.mensaje}}</div>
+
+                    </div>
+                </li>
+            </div>
+        </div>
+    </ol> -->
+</div>

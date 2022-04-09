@@ -1,10 +1,7 @@
-<div style=" float: left; width: 1350px; position: relative; padding-left: 300px;">
-
-
+<div style="padding-left: 70px !important; ">
     <ol class="list-group list-group-numbered" *ngFor="let art1 of response;let i=index"
         style="padding-left: 10px !important; padding-right: 10px;">
-        <br>
-        <div class="table-responsive">
+        <div class="table-responsive" style="position: fixed; z-index: 1;">
             <table class="table table-striped table-dark">
                 <thead>
                     <tr>
@@ -24,43 +21,102 @@
                     </tr>
                 </tbody>
             </table>
+            <div style="padding-left: 90%; text-align: left  !important;">
+                <button type="button" class="btn btn-secondary" routerLink="/Error">
+                    <svg routerLink="/Error" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z">
+                        </path>
+                        <path fill-rule="evenodd"
+                            d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z">
+                        </path>
+                    </svg>
+                    atras</button>
+            </div>
+
         </div>
-
-        <H4>Procesos Relacionadas con su Informacion</H4>
         <br>
-        <div class="anyClass">
-            <ol class="list-group list-group-numbered" *ngFor="let item of art1.queue;let indice=index"
-                style="margin-left: 100px; margin-right: 100px; margin-top: 10px;">
+        <div class="anyClass" style="position: absolute; top: 25vh; width: 85%;">
+            <H4 style="padding-left: 20px !important; ">Procesos e Informacion</H4>
+            <ol class="list-group list-group-flush" *ngFor="let item of art1.queue;let indice=index"
+                style="margin-left: 50px; margin-right: 50px; margin-top: 10px;">
+                <div class="card">
 
-                <div class="list-group-item list-group-item-prymary" class="card">
 
-                    <li class="list-group-item list-group-item-prymary" style="color: blue;">Queue: {{item}}</li>
+                    <li class="list-group-item">
+                        <div
+                            *ngIf="art1.queueResult[indice+1] && art1.queueResult[indice+1].idResultado===-1; then thenBlock else elseBlock">
 
-                    <h5 style="color: darkgrey;">Valores del QueueResult</h5>
-                    <li class="list-group-item" *ngIf="art1.queueResult[indice]">Index
-                        {{art1.queueResult[indice].index}}</li>
-                    <li class="list-group-item" *ngIf="art1.queueResult[indice]">IdResultado
-                        {{art1.queueResult[indice].idResultado}}</li>
-
-                    <li class="list-group-item" *ngIf="art1.queueResult[indice]">Mensaje
-                        {{art1.queueResult[indice].mensaje}}
+                        </div>
+                        <ng-template #thenBlock><i style="color: red;"><svg style="width: 50px;"
+                                    *ngIf="art1.queueResult[indice+1]" xmlns="http://www.w3.org/2000/svg" width="21"
+                                    height="21" fill="currentColor" class="bi bi-exclamation-diamond"
+                                    viewBox="0 0 16 16" border-color="red">
+                                    <path
+                                        d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z" />
+                                    <path
+                                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                </svg><i style="color: blue;">Queue: {{item}} </i></i></ng-template>
+                        <ng-template #elseBlock><i style="color: green;"><svg style="width: 50px;"
+                                    *ngIf="art1.queueResult[indice+1]" xmlns="http://www.w3.org/2000/svg" width="21"
+                                    height="21" fill="currentColor" class="bi bi-exclamation-diamond"
+                                    viewBox="0 0 16 16" border-color="red">
+                                    <path
+                                        d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z" />
+                                    <path
+                                        d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                                </svg><i style="color: blue;">Queue: {{item}} </i></i></ng-template>
                     </li>
-                    <button *ngIf="art1.queueResult[indice]"
-                        (click)="Reenviar(art1.queue[indice],art1.queueResult[indice+1],art1.payLoad,art1._id)"
-                        class="btn btn-dark" style="width: 200px; text-align: center;">
-                        Reenviar desde Aqui</button>
+
+                    <h5 style="color: darkgrey; font-size: 16px; padding-left: 2%;">Mensaje</h5>
+
+                    <!-- <li class="list-group-item"
+                        *ngIf="art1.queueResult[indice+1] && art1.queueResult[indice+1].index==indice ">Index
+                        {{art1.queueResult[indice+1].index}}</li> -->
+                    <!-- <li class="list-group-item"
+                        *ngIf="art1.queueResult[indice+1] && art1.queueResult[indice+1].index==indice ">IdResultado
+                        {{art1.queueResult[indice+1].idResultado}}</li> -->
+
+                    <div
+                        *ngIf="art1.queueResult[indice+1] && art1.queueResult[indice+1].index==indice; then thBlock else elBlock ">
+                    </div>
+                    <ng-template #thBlock>
+                        <div style=" padding-left: 2%; font-size: 14px;">{{art1.queueResult[indice+1].mensaje}}</div>
+                    </ng-template>
+                    <ng-template #elBlock>
+                        <div class="alert alert-info" style="text-align: center;"><svg style="text-align: center;"
+                                xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
+                                class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                                <path
+                                    d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0L7.005 3.1ZM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" />
+                            </svg><i style="font-size: 10px; text-align: center;">Cola Aun no Procesada</i></div>
+                    </ng-template>
+
                     <br>
 
+                    <div *ngIf="art1.queueResult[indice+1] && art1.queueResult[indice+1].index==indice; "
+                        style="padding-left: 2%;"><button
+                            (click)="Reenviar2(art1.queue[indice],art1,art1.payLoad,art1._id)" class="btn btn-dark"
+                            style="width: 200px; text-align: center; ">
+                            Reenviar desde Aqui</button></div>
+                    <br>
                 </div>
 
-               
-
-
             </ol>
-            <li class="list-group-item">PayLoad: {{art1.payLoad}}</li>
-
+            <br>
+            <li class="list-group-item">
+                <p><strong>PayLoad:</strong></p><i><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                        <path
+                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                    </svg></i><textarea class="form-control" id="exampleFormControlTextarea1"
+                    rows="3"> {{art1.payLoad}}</textarea>
+            </li>
         </div>
-
+        <br>
         <div>
         </div>
 

@@ -1,36 +1,62 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../Services/service.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
+import { queue } from 'rxjs/internal/scheduler/queue';
+
+interface Buss {
+  id: string;
+
+}
+interface queRes {
+  index: any;
+  idResultado: any;
+  mensaje: string;
+}
+interface BussProcees {
+  _id: string;
+  queue: [];
+  indexComplete: any;
+  queueResult: queRes[];
+  payLoad: string;
+  isvisible:boolean;
+  createdAt:Date;
+}
 
 @Component({
   selector: 'app-detalles',
   templateUrl: './detalles.component.html',
   styleUrls: ['./detalles.component.css']
 })
-export class DetallesComponent implements OnInit {
 
+export class DetallesComponent implements OnInit {
+  resu: any = {
+    idResultado: null,
+    mensaje: '',
+    json: null
+  };
   constructor(protected service: ServiceService) { }
 
   ngOnInit() {
+    clearInterval(this.service.intervalo)
     this.obtenerQueue()
   }
 
-  art1 = {
-    _id: null,
-    queue: null,
-    indexComplete: null,
-    queueResult: null,
-    payLoad: null,
-    idStatus: null
-  }
+  // art1 = {
+  //   _id: null,
+  //   queue: null,
+  //   indexComplete: null,
+  //   queueResult: [{ mensaje: null, index: null,idResultado:null }],
+  //   payLoad: null,
+  //   idStatus: null
+  // }
 
-  art2 = {
-    index: null,
-    idResultado: null,
-    mensaje: null,
-  }
+  // art2 = {
+  //   index: null,
+  //   idResultado: null,
+  //   mensaje: null,
+  // }
 
-  response: any[];
+  response: BussProcees[];
 
   Result: any[];
 
@@ -39,23 +65,27 @@ export class DetallesComponent implements OnInit {
     var result
     art = localStorage.getItem("valor")
     this.response = [JSON.parse(art)]
+    var arr = this.response[0].queueResult;
+    var uniqueArray = []
+    var indexActual = 0
+
+
+    for (const iterator of arr) {
+      if (iterator.index != indexActual) {
+        indexActual = iterator.index;
+        uniqueArray.push(iterator)
+
+      }
+    }
+
+    this.response[0].queueResult = uniqueArray;
     result = [JSON.parse(art)]
-    console.log(this.response)
-
     localStorage.setItem("Result", result)
-
   }
 
-
-
-
-  resu: any = {
-    idResultado: null,
-    mensaje: '',
-    json: null
-  };
-
   Reenviar(queue, result, payload, idQueue) {
+
+    console.log(result)
 
     this.service.enviaQueue(queue, idQueue).subscribe((result: any = {
       idResultado: null,
@@ -75,6 +105,35 @@ export class DetallesComponent implements OnInit {
           title: 'Error',
           text: 'Ocurrio algun Error',
 
+        })
+      }
+    });
+  }
+
+  Reenviar2(queue, result, payload, idQueue) {
+
+    let planet: Buss = {
+      id: idQueue
+
+    };
+
+    console.log(result)
+    this.service.editqueue(queue, JSON.stringify(planet), result).subscribe((result: any = {
+      idResultado: null,
+      mensaje: '',
+      json: null
+    }) => {
+      if (result.idResultado != -1) {
+        this.resu = result[0],
+          new Swal({
+            title: 'Cola Enviada con Exito',
+            icon: 'success',
+          })
+      } else {
+        new Swal({
+          icon: 'error',
+          title: 'Error',
+          text: 'Ocurrio algun Error',
         })
       }
     });

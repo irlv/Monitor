@@ -1,0 +1,103 @@
+<div class="container" style="padding-left: 80px !important; margin-top: 10px;">
+    <div class="row">
+        <div class="col-md-4"  *ngFor="let package of response;let indice=index">
+            <div class="card" style="margin-bottom: 10px;" class="shadow p-3 mb-5 bg-white rounded">
+                <div class="card-body"  >
+                    <i style="margin-left: 92%;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    (click)="abrirmodal(package)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                        <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                      </svg></i>
+                    
+                    <h5 class="letra15px">Nombre del Proceso </h5>
+                    <p class="let">{{package.clave}}</p>
+                    <br>
+                    <h6 class="letra10px"> Id: {{package._id}}</h6>
+                    <br>
+                    <br>
+                    <div type="button" data-bs-placement="right" title="Erroneas" (click)="filtrarQueue(package.queue,package.clave)"  >
+                        
+                        <p class="letra10px" >Con Error &nbsp;&nbsp;&nbsp;&nbsp;<svg style="width: 50px;"
+                            xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+                            class="bi bi-exclamation-diamond" viewBox="0 0 16 16">
+                            <path
+                                d="M6.95.435c.58-.58 1.52-.58 2.1 0l6.515 6.516c.58.58.58 1.519 0 2.098L9.05 15.565c-.58.58-1.519.58-2.098 0L.435 9.05a1.482 1.482 0 0 1 0-2.098L6.95.435zm1.4.7a.495.495 0 0 0-.7 0L1.134 7.65a.495.495 0 0 0 0 .7l6.516 6.516a.495.495 0 0 0 .7 0l6.516-6.516a.495.495 0 0 0 0-.7L8.35 1.134z" />
+                            <path
+                                d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+                        </svg></p>
+                    </div>
+                    <div type="button" data-bs-placement="right" title="Ejecutandose" (click)="filtrarQueueEproceso(package.queue,package.clave)" (click)="filtrarQueueEproceso(package.queue,package.clave)" >
+                        <p class="letra10px">En Ejecucion<svg style="width: 50px;" xmlns="http://www.w3.org/2000/svg"
+                            width="18" height="18" fill="currentColor" class="bi bi-activity" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2Z" />
+                        </svg></p>
+                    </div>
+
+                </div>
+
+                <!-- Modal -->
+                
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" >
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#96989f;">
+                                <h5 class="modal-title" id="exampleModalLabel">Informacion de Cada Package</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="letra10px"><b  class="letra15px">Nombre: {{paqueteActual?.clave}}</b></p>
+                                <h6 class="letra10px"><b class="letra15px">Id:</b> {{paqueteActual?._id}}</h6>
+                                <h6 class="letra15px"><b>Clients:</b></h6>
+                                <h6 class="letra10px" *ngFor="let item of paqueteActual?.clients;">
+                                    {{item}}</h6>
+                                <br>
+                                <h6 class="letra15px"><b>Queue:</b> </h6>
+                                <h6 *ngFor="let item1 of paqueteActual?.queue;" class="letra10px"><li >{{item1}}</li></h6>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <br>
+    </div>
+</div>
+
+
+
+<!-- <h6 class="letra10px" type="button" (click)="mostarV2()">Clients:</h6>
+                    <h6 [ngClass]="{ocultar:mostar2!=true}" class="letra10px" *ngFor="let item of package.clients;">
+                        {{item}}</h6>
+                    <br>
+                    <h6 class="letra10px" type="button" (click)="mostarV()">Queue:</h6>
+                    <h6 [ngClass]="{ocultar:mostar!=true}">{{package.queue}} </h6>
+
+
+ -->
+
+
+
+<!-- 
+
+<div   style="padding-left: 80px !important; "  *ngIf="!errorMessage">
+    
+    <ol class="list-group list-group-numbered" *ngFor="let package of response;let indice=index">
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div class="card">
+                <div > Id: {{package._id}} </div>
+                <div > Clave: {{package.clave}} </div>
+                <div > Clients: {{package.clients}} </div>
+                <div > Queue: {{package.queue}} </div>
+            </div>
+        </li>
+    </ol>
+
+</div> -->
